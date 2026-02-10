@@ -1,10 +1,10 @@
 # SBURBelago
 
-Ever wanted to play an apocalyptic game of SBURB but also play your favorite randomized game to do it? This meta-world is for you!
+Ever wanted to play an apocalyptic game of [SBURB](https://breezewiki.com/mspaintadventures/wiki/Sburb) but also play your favorite randomized game to do it? This meta-world is for you!
 
-This world lets you set up a SBURB session(without the world-destroying meteors) using the other Archipelago worlds. By default, all slots become part of the Medium's ring, only being able to find items for itself or to send to the next one in the ring.
+This world lets you set up a SBURB session(without the [world-destroying meteors](https://breezewiki.com/mspaintadventures/wiki/Meteor)) using the other Archipelago worlds. By default, all slots become part of the [Medium](https://breezewiki.com/mspaintadventures/wiki/Medium)'s ring, only being able to find items for itself or to send to the next one in the ring.
 
-You can also add specific worlds to Skaia, which allows them to communicate with all worlds in the Medium, allowing for some otherwise restrictive worlds to participate nonetheless.
+You can also add specific worlds to [Skaia](https://breezewiki.com/mspaintadventures/wiki/Skaia), which allows them to communicate with all worlds in the Medium, allowing for some otherwise restrictive worlds to participate nonetheless.
 
 ## Customization
 

@@ -22,7 +22,7 @@ You can also add specific worlds to Skaia, which allows them to communicate with
 
 1. Install the apworld
 2. Create your chosen options, either through generating a template or through options creator.
-3. Make sure the SBURBelago yaml is the last one in the folder, causing it to be the last slot of the multiworld. This world removes itself from the multiworld at the end of generation, since it has no items or locations and would otherwise show up as an ungoal-able slot. It also helps hide that the multiworld is homestuck themed if that's what you want.
+3. **Make sure the SBURBelago yaml is the last one** in the folder, causing it to be the last slot of the multiworld. This world removes itself from the multiworld at the end of generation, since it has no items or locations and would otherwise show up as an ungoal-able slot. It also helps hide that the multiworld is homestuck themed if that's what you want.
 4. Generate!
 
 ## Notes

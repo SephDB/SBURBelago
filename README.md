@@ -24,7 +24,7 @@ You can also add specific worlds to [Skaia](https://breezewiki.com/mspaintadvent
 
 1. Install the apworld
 2. Create your chosen options, either through generating a template or through options creator.
-3. **Make sure SBURBelago is the last slot**(named last when sorted case-insensitive alphabetically). This world removes itself from the multiworld at the end of generation, since it has no items or locations and would otherwise show up as an ungoal-able slot. It also helps hide that the multiworld is homestuck themed if that's what you want.
+3. **Make sure SBURBelago is the last slot**(last entry in the last yaml file, yaml files are sorted case-insensitively). This world removes itself from the multiworld at the end of generation, since it has no items or locations and would otherwise show up as an ungoal-able slot. It also helps hide that the multiworld is homestuck themed if that's what you want.
 4. Generate!
 
 ## Notes

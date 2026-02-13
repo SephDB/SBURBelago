@@ -1,6 +1,6 @@
 # SBURBelago
 
-![Diagram showing the shape of a SBURB session, a ring of circles surrounding a center circle](images/SBURBelago.png)
+![Diagram showing the shape of a SBURB session, a ring of circles surrounding a center circle](images/SBURBelago_opaque.png)
 
 Ever wanted to play an apocalyptic game of [SBURB](https://breezewiki.com/mspaintadventures/wiki/Sburb) but also play your favorite randomized game to do it? This meta-world is for you!
 

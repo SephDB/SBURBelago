@@ -14,6 +14,7 @@ You can also add specific worlds to [Skaia](https://breezewiki.com/mspaintadvent
   - **True SBURB**: Each player only has items of the next in the ring. This is extremely hard on the generation algorithm, make sure to use some of the other options to lessen the impact if you choose this
   - **Ring**: The default, Each player has items for themselves and the next person in the ring
   - **Dual Ring**: Make the ring bidirectional, so each player can get items for both of their neighbours
+  - **Custom**: It's possible to define your own topology, with a comma-separated list of offsets(for example, Ring is "0,1" while Dual Ring is "-1,0,1"). These will be used for the connectivity of each world.
 - Randomize the order of the Medium, if you want to find out when the run starts how the players are connected(default is slot order)
 - Progression Only: Only apply these rules to progression items, heavily reduces stress on the fill algorithm by allowing non-progression to be placed anywhere.
 - Add worlds to Skaia:

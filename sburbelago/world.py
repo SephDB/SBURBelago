@@ -1,10 +1,11 @@
 import itertools
+import logging
 from collections import defaultdict
 from dataclasses import dataclass
 
 from BaseClasses import Location
 from NetUtils import MultiData
-from Options import OptionError, OptionSet, Choice, PerGameCommonOptions, Toggle, DefaultOnToggle, T
+from Options import OptionError, OptionSet, Choice, PerGameCommonOptions, Toggle, DefaultOnToggle, T, TextChoice
 # Imports of base Archipelago modules must be absolute.
 from worlds.AutoWorld import World
 
@@ -20,15 +21,20 @@ class SkaiaSlots(OptionSet):
     """
     display_name = "Skaia Slots"
 
-class MediumTopology(Choice):
+class MediumTopology(TextChoice):
     """
     Select the type of topology the Medium has.
 
     Ring: Each game only has items for itself and the next in the ring.
     Dual: Items can flow in both directions across the ring.
     SBURB: each game exclusively has item for the next, not its own.
-    WARNING: this last mode is extremely likely to fail generation.
-    Enable at least one decently-sized Skaia world and turn on progression only mode for any chance of generating.
+        WARNING: this last mode is extremely likely to fail generation.
+        Enable at least one decently-sized Skaia world and turn on progression only mode for any chance of generating.
+    Custom: comma-separated list of offsets to connected worlds. These work modulo the amount of worlds in the Medium.
+        Here's how the other options translate into this one:
+        - Ring: "0,1"
+        - Dual: "-1,0,1"
+        - SBURB: "1"
     """
     display_name = "Medium's Topology"
 
@@ -40,6 +46,8 @@ class MediumTopology(Choice):
 
     @classmethod
     def get_option_name(cls, value: T) -> str:
+        if isinstance(value,str):
+            return value
         if value == MediumTopology.option_SBURB:
             return "SBURB"
         return super().get_option_name(value)
@@ -87,16 +95,29 @@ class SBURBelagoWorld(World):
         players = [p for p in self.multiworld.player_ids[:-1] if p not in skaia]
         if self.options.medium_rando:
             self.random.shuffle(players)
-        players.append(players[0]) #make pairwise create the ring structure
+
+        if len(players) == 0:
+            logging.warn("SBURBelago requires players in the Medium to do anything.")
+            if len(skaia) == 0:
+                raise OptionError("SBURBelago is a meta-world and requires other worlds to generate.")
+            logging.warn("All worlds are placed in Skaia, there's no rules for SBURBelago to set!")
+
+        topology_option:str = defaultdict(lambda:self.options.medium_topo.value,{
+            MediumTopology.option_ring: "0,1",
+            MediumTopology.option_dual: "-1,0,1",
+            MediumTopology.option_SBURB: "1"
+        })[self.options.medium_topo.value]
+
+        try:
+            topology = [int(part) for part in topology_option.split(',')]
+        except ValueError:
+            raise OptionError("SBURBelago: Invalid Medium topology specification. Please double check your syntax.")
 
         connected_worlds = defaultdict(set)
-        for a,b in itertools.pairwise(players):
-            if self.options.medium_topo.value != MediumTopology.option_SBURB:
-                connected_worlds[a].add(a)
-            connected_worlds[a].add(b)
-            connected_worlds[a].update(skaia)
-            if self.options.medium_topo.value == MediumTopology.option_dual:
-                connected_worlds[b].add(a)
+        for index,player in enumerate(players):
+            connected_worlds[player].update(skaia)
+            for offset in topology:
+                connected_worlds[player].add(players[(index+offset) % len(players)])
 
         self.connected_worlds = {p: frozenset(allowed) for p,allowed in connected_worlds.items()}
 

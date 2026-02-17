@@ -14,7 +14,7 @@ You can also add specific worlds to [Skaia](https://breezewiki.com/mspaintadvent
   - **True SBURB**: Each player only has items of the next in the ring. This is extremely hard on the generation algorithm, make sure to use some of the other options to lessen the impact if you choose this
   - **Ring**: The default, Each player has items for themselves and the next person in the ring
   - **Dual Ring**: Make the ring bidirectional, so each player can get items for both of their neighbours
-  - **Custom**: It's possible to define your own topology, with a comma-separated list of offsets(for example, Ring is "0,1" while Dual Ring is "-1,0,1"). These will be used for the connectivity of each world.
+  - **Custom**: It's possible to define your own topology, see [Advanced Options](docs/advanced.md).
 - Randomize the order of the Medium, if you want to find out when the run starts how the players are connected(default is slot order)
 - Progression Only: Only apply these rules to progression items, heavily reduces stress on the fill algorithm by allowing non-progression to be placed anywhere.
 - Add worlds to Skaia:
@@ -23,10 +23,10 @@ You can also add specific worlds to [Skaia](https://breezewiki.com/mspaintadvent
 
 ## Setup
 
-1. Install the apworld
-2. Create your chosen options, either through generating a template or through options creator.
-3. **Make sure SBURBelago is the last slot**(last entry in the last yaml file, yaml files are sorted case-insensitively). This world removes itself from the multiworld at the end of generation, since it has no items or locations and would otherwise show up as an ungoal-able slot. It also helps hide that the multiworld is homestuck themed if that's what you want.
-4. Generate!
+1. Install the apworld and restart the AP launcher.
+2. Create your chosen options, preferably through Options Creator.
+3. Generate!
+4. (optional) Check the topology in the spoiler log!
 
 ## Notes
 

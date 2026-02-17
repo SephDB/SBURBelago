@@ -30,6 +30,8 @@ Combined with `medium_topology`, this is an incredibly powerful tool. Even more 
 
 When multiple slots are involved, the rules change slightly. Each slot will add connections to all the worlds it manages, and if multiple slots touch the same world, the connections they add will be combined additively.
 
+One added restriction is that a world can't have connections in both a progression_only sburb session and a normal one.
+
 Skaia worlds get connections added to and from each of their slot's Medium worlds.
 
 As an example, let's take a world with 7 slots, P1-7. Then the following two SBURBelago worlds will result in the topology shown below:

@@ -6,7 +6,7 @@ To start, all worlds in the medium are indexed in a cyclical way. This means tha
 
 ## Medium Topology
 
-The option `medium_topology` offers more than just Ring, Dual and SBURB. Each of these are actually defined as a set of cyclical offsets that define which slots items can get sent to.
+The option `medium_topo` offers more than just Ring, Dual and SBURB. Each of these are actually defined as a set of cyclical offsets that define which slots items can get sent to.
 
 Ring, for example, is `0,1`, meaning that it'll be able to send items to both itself(0), and the next world in the cycle(1). SBURB is defined as just `1` to remove the ability for a world to find its own items. Dual, then, is defined as `-1,0,1`, allowing for items to be sent forwards and backwards along the ring.
 
@@ -22,7 +22,7 @@ The hidden option `medium_slots`(only visible in Options Creator under Advanced 
 
 Slots specified to be Skaia will be removed from this list before it's used.
 
-Combined with `medium_topology`, this is an incredibly powerful tool. Even more so when combined with the ability to have multiple SBURBelago slots. The `BETWEEN` and `UNTIL` options don't even really make sense without them, since there is a restriction in place that all slots need to be managed by at least one SBURBelago slot. The item rules this set up quickly run into issues if not all worlds are part of the rule setting.
+Combined with `medium_topo`, this is an incredibly powerful tool. Even more so when combined with the ability to have multiple SBURBelago slots. The `BETWEEN` and `UNTIL` options don't even really make sense without them, since there is a restriction in place that all slots need to be managed by at least one SBURBelago slot. The item rules this set up quickly run into issues if not all worlds are part of the rule setting.
 
 `medium_slots` is a list, so you can enter the same slot in there multiple times if you want even more control. This can allow for some more resulting topologies that were previously completely impossible.
 

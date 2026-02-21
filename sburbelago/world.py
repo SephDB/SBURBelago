@@ -12,14 +12,15 @@ from Options import OptionError, OptionSet, Choice, PerGameCommonOptions, Toggle
 from worlds.AutoWorld import World, WebWorld
 
 
-class SkaiaSlots(OptionSet):
+#OptionList to allow for non-string entries
+class SkaiaSlots(OptionList):
     """
     Select which slots are part of Skaia instead of the Medium's topology.
     These will be able to send/receive items to/from all Medium worlds.
 
     Good for meta-games like APBingo or a group puzzle slot
 
-    Valid keys are the names of other slots in the multiworld
+    Valid keys are the names of other slots in the multiworld or the slot number directly
     """
     display_name = "Skaia Slots"
 
@@ -127,26 +128,26 @@ class SBURBelagoWorld(World):
             if self.multiworld.groups:
                 raise OptionError("SBURBelago can't delete itself if there's player groups(like item link)")
 
-        slot_names = {name:player for player,name in self.multiworld.player_name.items()}
+        slot_lookup = {**{name:player for player,name in self.multiworld.player_name.items()}, **{i:i for i in self.multiworld.player_ids}}
 
-        if not self.options.skaia.value.issubset(slot_names.keys()):
-            raise OptionError(f"Non-existent slots defined as Skaia worlds! {self.options.skaia.value.difference(slot_names.keys())}")
+        if not set(self.options.skaia.value).issubset(slot_lookup.keys()):
+            raise OptionError(f"Non-existent slots defined as Skaia worlds! {set(self.options.skaia.value).difference(slot_lookup.keys())}")
 
-        skaia = {slot_names[p] for p in self.options.skaia.value}
+        skaia = {slot_lookup[p] for p in self.options.skaia.value}
 
         medium = []
         sburbs = [player for player in self.multiworld.player_ids if self.multiworld.game[player] == self.game]
         previous_sburb = max([p for p in sburbs if p < self.player],default=-1)
 
         for slot in self.options.medium_slots.value:
-            if slot == "ALL":
+            if slot in slot_lookup:
+                medium.append(slot_lookup[slot])
+            elif slot == "ALL":
                 medium += self.multiworld.player_ids[:]
             elif slot == "UNTIL":
                 medium += self.multiworld.player_ids[:self.player]
             elif slot == "BETWEEN":
                 medium += self.multiworld.player_ids[previous_sburb+1:self.player]
-            elif slot in slot_names:
-                medium.append(slot_names[slot])
             else:
                 raise OptionError(f"Unknown slot in medium_slots: {slot}")
 
@@ -169,7 +170,7 @@ class SBURBelagoWorld(World):
         })[self.options.medium_topo.value]
 
         try:
-            topology = [int(part) for part in topology_option.split(',')]
+            topology = [int(part) for part in topology_option.split(',')] if len(topology_option) > 0 else []
         except ValueError:
             raise OptionError("SBURBelago: Invalid Medium topology specification. Please double check your syntax.")
 

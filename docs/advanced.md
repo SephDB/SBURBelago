@@ -34,7 +34,7 @@ One added restriction is that a world can't have connections in both a progressi
 
 Skaia worlds get connections added to and from each of their slot's Medium worlds.
 
-As an example, let's take a world with 7 slots, P1-7. Then the following two SBURBelago worlds will result in the topology shown below:
+As an example, let's take a world with 7 slots, named P1-7. Then the following two SBURBelago worlds will result in the topology shown below:
 
 ```yaml
 name: SBURB
@@ -65,6 +65,34 @@ SBURBelago:
 If we add an 8th world as Skaia to the second slot, we'll get the following instead:
 
 ![Topology showing two interconnected rings, with the second having a central node as well](../images/MultiSBURB_skaia.png)
+
+## Using slot numbers instead of player names
+
+In cases where the player name is decided by a random option roll, you can use the slot number instead of the player name anywhere slots get specified(so in both the `medium_slots` and `skaia` options). The above yaml could also have been written as the following, also showing the ability to mix and match slot numbers and player names:
+
+```yaml
+name: SBURB
+game: SBURBelago
+SBURBelago:
+  medium_topo: SBURB
+  progression_only: false
+  medium_slots:
+    - 1
+    - 2
+    - 3
+    - 4
+---
+name: SBURB2
+game: SBURBelago
+SBURBelago:
+  medium_topo: SBURB
+  progression_only: false
+  medium_slots:
+    - 4
+    - P5
+    - P6
+    - 7
+```
 
 ## Hiding SBURBelago from the multiworld
 

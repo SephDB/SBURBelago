@@ -21,7 +21,7 @@ Required fast operations:
 
 Run flow feasibility using the typical demand encoding.
 
-## Example requirement encodings
+## Example allowed flow encodings
 
 Each of these is additive, there is no removing of existing edges.
 
@@ -61,21 +61,27 @@ flowchart LR
     Alocs -->|"||A locs||"| t
 ```
 
-### Local items
+## Filters
 
-Split out the items specified into a new vertex, add edge with corresponding demand and capacity, connect to world's locations.
+To handle global restrictions, the concept of filters is needed. When a flow like the above is added, it's in the form of (item sets) => (location sets). These filters will split a flow like this into multiple as needed, disallowing edges that shouldn't exist according to them.
 
-```mermaid
-flowchart LR
-    Alocal("A local") -->|"||A local||/||A local||"| Alocs("A locs")
-```
+### (non-)Local items
 
-Resulting flow graph:
+Split off sets for specified items, then split location sets as necessary for those items' allowed flows.
 
-```mermaid
-flowchart LR
-    s(s) -->|"||A local||"| Alocs(A locs) -->|"||A locs||"| t(t)
-    s -.->|"0"| Al(A local)
-```
+### Priority locations
 
-This ends up effectively removing the `A local` node from the graph entirely, replacing it with a demand edge of the same size from `s` to `A locs`. Special care will have to be taken to keep this relationship intact across the representations.
+There's two cases here:
+
+1. More progression items than priority locations:
+   - Remove edges from non-progression items to the priority locations
+2. More priority locations than progression items
+   - Remove edges to non-priority locations from progression items
+
+### Excluded locations
+
+Remove edges from progression and/or useful items to excluded locations.
+
+### (non-)Early Items
+
+Split off set of items requested with their amounts, then if such a set is involved in a flow, split off to relevant locations.

@@ -61,6 +61,10 @@ flowchart LR
     Alocs -->|"||A locs||"| t
 ```
 
+### (early) Local items
+
+Explicitly add a flow for local items specified in either local_items or early_local_items.
+
 ## Filters
 
 To handle global restrictions, the concept of filters is needed. When a flow like the above is added, it's in the form of (item sets) => (location sets). These filters will split a flow like this into multiple as needed, disallowing edges that shouldn't exist according to them.
@@ -81,7 +85,3 @@ There's two cases here:
 ### Excluded locations
 
 Remove edges from progression and/or useful items to excluded locations.
-
-### (non-)Early Items
-
-Split off set of items requested with their amounts, then if such a set is involved in a flow, split off to relevant locations.

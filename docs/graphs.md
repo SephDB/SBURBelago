@@ -10,7 +10,20 @@ Required fast operations:
 - lookup location => vertex
 - update path between item+location for both placement and removal of item at location
 
-## Basic encoding strategy
+## Location/ItemGroup
+
+Groupings of location/item sets with two-way connectivity with their respective sets. Each set knows which groups it's in, and each group knows which sets are part of it.
+
+This allows for two key things:
+
+- When splitting a set due to requirements, update all groups
+- When making a new flow, use larger groups to compose it(group per world/property/...)
+
+## Phase 1 Flow Encoding
+
+A flow is composed of an ItemGroup and a LocationGroup of allowed placements. Could add more properties later.
+
+## Phase 2 encoding - Flow graph
 
 - item nodes are sources with outgoing demand equal to the count sum
   - Split progression items off from the rest
@@ -67,7 +80,7 @@ Explicitly add a flow for local items specified in either local_items or early_l
 
 ## Filters
 
-To handle global restrictions, the concept of filters is needed. When a flow like the above is added, it's in the form of (item sets) => (location sets). These filters will split a flow like this into multiple as needed, disallowing edges that shouldn't exist according to them.
+To handle global restrictions, the concept of filters is needed. These filters will split a requested flow into multiple as needed, disallowing edges that shouldn't exist according to them.
 
 ### (non-)Local items
 

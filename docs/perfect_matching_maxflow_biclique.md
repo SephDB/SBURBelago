@@ -57,7 +57,7 @@ If multiple min-flow bicliques overlap, however, special care needs to be taken 
 
 ```math
 \begin{align}
-U_i \cap U_j = \empty &\lor V_i \cap V_j = \empty &\text{One-sided overlap}\\
+U_i \cap U_j = \emptyset &\lor V_i \cap V_j = \emptyset &\text{One-sided overlap}\\
 U_i \subseteq U_j &\land V_i \subseteq V_j &\text{Complete subset}\\
 \end{align}
 ```
